@@ -9,3 +9,4 @@
 
 ## 💻 Development Libraries
 - [Typescript](https://www.typescriptlang.org/)
+- [eslint](https://eslint.org/)
