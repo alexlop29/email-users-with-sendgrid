@@ -20,6 +20,11 @@
 - [Typescript](https://www.typescriptlang.org/)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)
+- [Sinon.js](https://www.npmjs.com/package/sinon)
+
+### Types
+
+- Sinon
 
 ## Additional Reading
 
