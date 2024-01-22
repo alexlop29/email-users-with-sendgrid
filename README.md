@@ -3,13 +3,14 @@
 ## Getting Started
 
 ```
-
+docker-compose up --build -d
 ```
 
 ### 🔧 Core libraries
 
 - [Node 20.11.0](https://nodejs.org/en)
 - [Mongoose ODM](https://mongoosejs.com)
+- [Express.js]
 
 ### 💻 Development Libraries
 
@@ -21,11 +22,13 @@
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)
 - [Sinon.js](https://www.npmjs.com/package/sinon)
+- [Validator.js]()
 
 ### Types
 
-- Sinon
+- @types/sinon
 - @types/validator
+- @types/express
 
 ## Additional Reading
 
