@@ -25,14 +25,17 @@
 ### Types
 
 - Sinon
+- @types/validator
 
 ## Additional Reading
 
 - https://stackoverflow.com/questions/11318972/stubbing-a-mongoose-model-with-sinon
 - https://getsimple.works/how-to-stub-mongoose-methods-and-mock-document-objects
+- 
 
 ## Left Off
 - Writing additional unit tests for the user class
+- Improve validation in the user schema
 
 Opens Docs: Improving validation the user schema
 - https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
