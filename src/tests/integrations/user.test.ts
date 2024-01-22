@@ -19,7 +19,7 @@ describe("Should describe the user", () => {
       validUser.phone,
       validUser.resume,
     );
-    expect(async() => await user.validate()).toEqual(new Response(200, "OK"));
+    expect(user.validate()).toEqual(new Response(200, "OK"));
   });
 
   test("Should return 400 if the user's first name is an empty string", async () => {
@@ -75,6 +75,6 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.save()).toEqual(new Response(200, "OK"));
+    expect(user.save()).toEqual(new Response(200, "OK"));
   });
 });

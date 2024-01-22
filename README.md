@@ -4,6 +4,7 @@
 
 ```
 docker-compose up --build -d
+docker-compose down
 ```
 
 ### 🔧 Core libraries
@@ -23,6 +24,7 @@ docker-compose up --build -d
 - [mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)
 - [Sinon.js](https://www.npmjs.com/package/sinon)
 - [Validator.js]()
+- [nodemon]()
 
 ### Types
 
