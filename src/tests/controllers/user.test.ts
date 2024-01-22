@@ -1,27 +1,37 @@
 import { User } from "../../controllers/user";
 import { user } from "../../models/user";
-import { stub } from "sinon";
-
-const mockSave = stub(user, "save");
-mockSave.returns({
-  _id: "123456789012345678901234",
-  firstName: "John",
-  lastName: "Tucker",
-  email: "johntucker@gmail.com",
-  phone: "9172009082",
-  resume: "resume.pdf",
-});
+import { stub, SinonStub } from "sinon";
 
 describe("Should describe the user", () => {
+  let mockSave: SinonStub;
+
+  beforeEach(() => {
+    mockSave = stub(user.prototype, "save");
+  });
+
+  afterEach(() => {
+    mockSave.restore();
+  });
+
   test("Should return 200 and save the user's information", async () => {
+    const userProfile = {
+      firstName: "John",
+      lastName: "Tucker",
+      email: "johntucker@gmail.com",
+      phone: "9172009082",
+      resume: "resume.pdf",
+    };
     const user = new User(
-      "John",
-      "Tucker",
-      "johntucker@gmail.com",
-      "9172009082",
-      "resume.pdf",
+      userProfile.firstName,
+      userProfile.lastName,
+      userProfile.email,
+      userProfile.phone,
+      userProfile.resume,
     );
+
+    mockSave.resolves(userProfile);
     const response = await user.save();
+
     expect(response.status).toBe(200);
     expect(response.message).toBe("OK");
   });

@@ -29,3 +29,4 @@
 ## Additional Reading
 
 - https://stackoverflow.com/questions/11318972/stubbing-a-mongoose-model-with-sinon
+- https://getsimple.works/how-to-stub-mongoose-methods-and-mock-document-objects

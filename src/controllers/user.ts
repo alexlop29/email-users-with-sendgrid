@@ -15,7 +15,7 @@ class User {
     // validates the user's information
   }
 
-  async save() {
+  async save(): Promise<Response | ResponseError> {
     try {
       const User = new user({
         firstName: this.firstName,
