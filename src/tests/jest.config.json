@@ -1,5 +1,7 @@
 {
   "preset": "ts-jest",
+  "globalSetup": "./globalSetup.ts",
+  "globalTeardown": "./globalTeardown.ts",
   "transform": {
     "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest"
