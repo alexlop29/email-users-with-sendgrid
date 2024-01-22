@@ -39,9 +39,9 @@ docker-compose down
 -
 
 ## Left Off
-
-- Writing additional unit tests for the user class
-- Improve validation in the user schema
+- Testing integration tests for the user class
+- bug: mongo-express is not picking up the latest database changes!
+- error in the two positive tests for the user class
 
 Opens Docs: Improving validation the user schema
 
