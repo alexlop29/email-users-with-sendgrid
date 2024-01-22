@@ -1,22 +1,16 @@
 import { user } from "../models/user";
 import { ResponseError } from "../handler/error";
 import { Response } from "../handler/response";
-import { IUser } from "../types/user";
-
-/*
-LEFT OFF: CREATING VALIDATION FUNC!
-FOLLOW DRY!
-*/
 
 class User {
-  profile: IUser | undefined;
+  profile;
 
   constructor(
     private readonly firstName: string,
     private readonly lastName: string,
     private readonly email: string,
     private readonly phone: string,
-    private readonly resume: string, // will contain the name of the file // may change to ObjectID
+    private readonly resume: string, // Change to Object_ID of the Document
   ) {
     this.profile = new user({
       firstName: this.firstName,
@@ -25,13 +19,22 @@ class User {
       phone: this.phone,
       resume: this.resume,
     });
+    this.validate();
   }
 
-  validate() {}
+  async validate(): Promise<Response | ResponseError> {
+    try {
+      await this.profile?.validate();
+      return new Response(200, "OK");
+    } catch (error: any) {
+      console.log(error);
+      throw new ResponseError(400, "Bad Request");
+    }
+  }
 
   async save(): Promise<Response | ResponseError> {
     try {
-      await User.save();
+      await this.profile?.save();
       return new Response(200, "OK");
     } catch (error: any) {
       console.log(error);
