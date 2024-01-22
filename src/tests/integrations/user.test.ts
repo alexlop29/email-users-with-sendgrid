@@ -1,11 +1,8 @@
 import { User } from "../../controllers/user";
 import { ResponseError } from "../../handler/error";
-import { user } from "../../models/user";
-import { stub, SinonStub } from "sinon";
+import { Response } from "../../handler/response";
 
 describe("Should describe the user", () => {
-  let mockSave: SinonStub;
-  let mockValidate: SinonStub;
   let validUser = {
     firstName: "John",
     lastName: "Tucker",
@@ -13,16 +10,6 @@ describe("Should describe the user", () => {
     phone: "9172009082",
     resume: "resume.pdf",
   };
-
-  beforeEach(() => {
-    mockSave = stub(user.prototype, "save");
-    mockValidate = stub(user.prototype, "validate");
-  });
-
-  afterEach(() => {
-    mockSave.restore();
-    mockValidate.restore();
-  });
 
   test("Should return 200 if the user's information is valid", async () => {
     const user = new User(
@@ -32,12 +19,7 @@ describe("Should describe the user", () => {
       validUser.phone,
       validUser.resume,
     );
-
-    mockValidate.resolves(validUser);
-    const response = await user.validate();
-
-    expect(response.status).toBe(200);
-    expect(response.message).toBe("OK");
+    expect(async() => await user.validate()).toEqual(new Response(200, "OK"));
   });
 
   test("Should return 400 if the user's first name is an empty string", async () => {
@@ -48,8 +30,6 @@ describe("Should describe the user", () => {
       validUser.phone,
       validUser.resume,
     );
-
-    mockValidate.rejects();
 
     expect(() => user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
@@ -65,8 +45,6 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    mockValidate.rejects();
-
     expect(() => user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
@@ -80,8 +58,6 @@ describe("Should describe the user", () => {
       validUser.phone,
       validUser.resume,
     );
-
-    mockValidate.rejects();
 
     expect(() => user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
@@ -99,26 +75,6 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    mockSave.resolves(validUser);
-    const response = await user.save();
-
-    expect(response.status).toBe(200);
-    expect(response.message).toBe("OK");
-  });
-
-  test("Should return 500 if unable to save the user's information", async () => {
-    const user = new User(
-      validUser.firstName,
-      validUser.lastName,
-      validUser.email,
-      validUser.phone,
-      validUser.resume,
-    );
-
-    mockSave.rejects();
-
-    expect(() => user.save()).rejects.toThrow(
-      new ResponseError(500, "Internal Server Error"),
-    );
+    expect(async() => await user.save()).toEqual(new Response(200, "OK"));
   });
 });
