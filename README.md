@@ -25,12 +25,14 @@ docker-compose down
 - [Sinon.js](https://www.npmjs.com/package/sinon)
 - [Validator.js]()
 - [nodemon]()
+- [multer]()
 
 ### Types
 
 - @types/sinon
 - @types/validator
 - @types/express
+- @types/multer
 
 ## Additional Reading
 
@@ -42,12 +44,14 @@ docker-compose down
 - https://www.npmjs.com/package/validatorjs
 - https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation
 
+Generating GUID
+
+- https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
+- https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+
 ## Left Off
 
-- Need to be able to use globalSetup and globalTeardown only
-  when running integration tests, and not unit tests!!!
-- Running unit tests for the user class
-- Running integration tests for the user class
+- Working on document class!
 
 ```
 jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integration/ --forceExit
