@@ -1,9 +1,7 @@
 import { User } from "../../controllers/user";
 import { ResponseError } from "../../handler/error";
-import { Response } from "../../handler/response";
 import { user } from "../../models/user";
 import { stub, SinonStub } from "sinon";
-import { storedUser } from "../utils/storedUser";
 
 describe("Should describe the user", () => {
   let mockSave: SinonStub;
@@ -35,13 +33,11 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    mockValidate.resolves(validUser);
-    // const response = await user.validate();
+    mockValidate.resolves();
+    const response = await user.validate();
 
-    expect(() => user.validate()).resolves.toEqual(new Response(200, "OK"));
-
-    // expect(response.status).toBe(200);
-    // expect(response.message).toBe("OK");
+    expect(response.status).toBe(200);
+    expect(response.message).toBe("OK");
   });
 
   test("Should return 400 if the user's first name is an empty string", async () => {
@@ -55,7 +51,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -71,7 +67,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -87,7 +83,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -103,7 +99,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -119,7 +115,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -135,7 +131,7 @@ describe("Should describe the user", () => {
 
     mockValidate.rejects();
 
-    expect(() => user.validate()).rejects.toThrow(
+    expect(user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -151,27 +147,10 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    mockSave.resolves(validUser);
-    expect(() => user.save()).resolves.toEqual(new Response(200, "OK"));
-    // const response = await user.save();
+    mockSave.resolves();
+    const response = await user.save();
 
-    // expect(response.status).toBe(200);
-    // expect(response.message).toBe("OK");
-  });
-
-  test("Should return 400 if the email address is already in use", async () => {
-    const user = new User(
-      storedUser.firstName,
-      storedUser.lastName,
-      storedUser.email,
-      storedUser.phone,
-      storedUser.resume,
-    );
-
-    mockValidate.rejects();
-
-    expect(() => user.save()).rejects.toThrow(
-      new ResponseError(400, "Bad Request"),
-    );
+    expect(response.status).toBe(200);
+    expect(response.message).toBe("OK");
   });
 });

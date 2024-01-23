@@ -43,8 +43,9 @@ docker-compose down
 - https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation
 
 ## Left Off
+
 - Need to be able to use globalSetup and globalTeardown only
-when running integration tests, and not unit tests!!!
+  when running integration tests, and not unit tests!!!
 - Running unit tests for the user class
 - Running integration tests for the user class
 

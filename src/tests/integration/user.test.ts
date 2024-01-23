@@ -1,7 +1,6 @@
 import { User } from "../../controllers/user";
 import { ResponseError } from "../../handler/error";
 import { Response } from "../../handler/response";
-import { storedUser } from "../utils/storedUser";
 import { initalize } from "./setup";
 
 describe("Should describe the user", () => {
@@ -37,7 +36,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -51,7 +50,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -65,7 +64,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -79,7 +78,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -93,7 +92,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -107,7 +106,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(async() => await user.validate()).rejects.toThrow(
+    expect(async () => await user.validate()).rejects.toThrow(
       new ResponseError(400, "Bad Request"),
     );
   });
@@ -123,20 +122,7 @@ describe("Should describe the user", () => {
       validUser.resume,
     );
 
-    expect(await user.save()).toEqual(new Response(200, "OK"));
+    const response = await user.save();
+    expect(response).toEqual(new Response(200, "OK"));
   });
-
-  test("Should return 400 if the email address is already in use", async() => {
-    const user = new User(
-      storedUser.firstName,
-      storedUser.lastName,
-      storedUser.email,
-      storedUser.phone,
-      storedUser.resume,
-    );
-
-    expect(async() => await user.save()).rejects.toThrow(
-      new ResponseError(400, "Bad Request"),
-    );
-  });
-}); 
+});

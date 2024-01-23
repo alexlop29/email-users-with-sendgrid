@@ -35,9 +35,6 @@ class User {
       await this.profile?.save();
       return new Response(200, "OK");
     } catch (error: any) {
-      if (error.name == "ValidationError"){
-        throw new ResponseError(400, "Bad Request");
-      }
       throw new ResponseError(500, "Internal Server Error");
     }
   }
