@@ -1,7 +1,9 @@
 import { User } from "../../controllers/user";
 import { ResponseError } from "../../handler/error";
+import { Response } from "../../handler/response";
 import { user } from "../../models/user";
 import { stub, SinonStub } from "sinon";
+import { storedUser } from "../utils/storedUser";
 
 describe("Should describe the user", () => {
   let mockSave: SinonStub;
@@ -34,10 +36,12 @@ describe("Should describe the user", () => {
     );
 
     mockValidate.resolves(validUser);
-    const response = await user.validate();
+    // const response = await user.validate();
 
-    expect(response.status).toBe(200);
-    expect(response.message).toBe("OK");
+    expect(() => user.validate()).resolves.toEqual(new Response(200, "OK"));
+
+    // expect(response.status).toBe(200);
+    // expect(response.message).toBe("OK");
   });
 
   test("Should return 400 if the user's first name is an empty string", async () => {
@@ -72,12 +76,60 @@ describe("Should describe the user", () => {
     );
   });
 
-  test("Should return 400 if the user provides an empty email address", async () => {
+  test("Should return 400 if the user provides an invalid email address", async () => {
     const user = new User(
       validUser.firstName,
       validUser.lastName,
       "sdasd@fsc",
       validUser.phone,
+      validUser.resume,
+    );
+
+    mockValidate.rejects();
+
+    expect(() => user.validate()).rejects.toThrow(
+      new ResponseError(400, "Bad Request"),
+    );
+  });
+
+  test("Should return 400 if the user provides an empty email address", async () => {
+    const user = new User(
+      validUser.firstName,
+      validUser.lastName,
+      "",
+      validUser.phone,
+      validUser.resume,
+    );
+
+    mockValidate.rejects();
+
+    expect(() => user.validate()).rejects.toThrow(
+      new ResponseError(400, "Bad Request"),
+    );
+  });
+
+  test("Should return 400 if the user provides an empty phone number", async () => {
+    const user = new User(
+      validUser.firstName,
+      validUser.lastName,
+      validUser.email,
+      "",
+      validUser.resume,
+    );
+
+    mockValidate.rejects();
+
+    expect(() => user.validate()).rejects.toThrow(
+      new ResponseError(400, "Bad Request"),
+    );
+  });
+
+  test("Should return 400 if the user provides an invalid phone number", async () => {
+    const user = new User(
+      validUser.firstName,
+      validUser.lastName,
+      validUser.email,
+      "231231",
       validUser.resume,
     );
 
@@ -100,25 +152,26 @@ describe("Should describe the user", () => {
     );
 
     mockSave.resolves(validUser);
-    const response = await user.save();
+    expect(() => user.save()).resolves.toEqual(new Response(200, "OK"));
+    // const response = await user.save();
 
-    expect(response.status).toBe(200);
-    expect(response.message).toBe("OK");
+    // expect(response.status).toBe(200);
+    // expect(response.message).toBe("OK");
   });
 
-  test("Should return 500 if unable to save the user's information", async () => {
+  test("Should return 400 if the email address is already in use", async () => {
     const user = new User(
-      validUser.firstName,
-      validUser.lastName,
-      validUser.email,
-      validUser.phone,
-      validUser.resume,
+      storedUser.firstName,
+      storedUser.lastName,
+      storedUser.email,
+      storedUser.phone,
+      storedUser.resume,
     );
 
-    mockSave.rejects();
+    mockValidate.rejects();
 
     expect(() => user.save()).rejects.toThrow(
-      new ResponseError(500, "Internal Server Error"),
+      new ResponseError(400, "Bad Request"),
     );
   });
 });

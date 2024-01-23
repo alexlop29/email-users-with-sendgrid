@@ -19,7 +19,6 @@ class User {
       phone: this.phone,
       resume: this.resume,
     });
-    this.validate();
   }
 
   async validate(): Promise<Response | ResponseError> {
@@ -27,7 +26,6 @@ class User {
       await this.profile?.validate();
       return new Response(200, "OK");
     } catch (error: any) {
-      console.log(error);
       throw new ResponseError(400, "Bad Request");
     }
   }
@@ -37,7 +35,9 @@ class User {
       await this.profile?.save();
       return new Response(200, "OK");
     } catch (error: any) {
-      console.log(error);
+      if (error.name == "ValidationError"){
+        throw new ResponseError(400, "Bad Request");
+      }
       throw new ResponseError(500, "Internal Server Error");
     }
   }
