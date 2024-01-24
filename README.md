@@ -52,7 +52,8 @@ Generating GUID
 
 ## Left Off
 
-- Working on document class!
+- Testing document class / build unit, then integration tests!
+- Need to setup AWS credentials!
 
 ```
 jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integration/ --forceExit

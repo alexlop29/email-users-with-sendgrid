@@ -10,6 +10,7 @@ Consider calling Document.rename(), User.validate(), User.Save(), Document.Save(
 */
 import { randomUUID } from "crypto";
 import { ResponseError } from "../handler/error";
+import { Response } from "../handler/response";
 import { S3 } from "aws-sdk";
 import { AWS_S3_BUCKET_NAME } from "../config/environment";
 import { s3 } from "../config/s3";
@@ -22,6 +23,7 @@ class Document {
   rename() {
     try {
       this.name = randomUUID();
+      return new Response(200, "OK");
     } catch (error) {
       throw new ResponseError(500, "Internal Server Error");
     }
