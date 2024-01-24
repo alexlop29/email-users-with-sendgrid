@@ -26,6 +26,7 @@ docker-compose down
 - [Validator.js]()
 - [nodemon]()
 - [multer]()
+- [aws-sdk]()
 
 ### Types
 

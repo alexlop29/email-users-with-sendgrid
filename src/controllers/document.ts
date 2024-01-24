@@ -6,16 +6,18 @@ file name will be stored in the database to associate with the user!
 /*
 Need to consider how commit ATOMIC transaction of user data upload to mongodb
 and s3 storage.
+Consider calling Document.rename(), User.validate(), User.Save(), Document.Save()
 */
 import { randomUUID } from "crypto";
 import { ResponseError } from "../handler/error";
+import { S3 } from "aws-sdk";
+import { AWS_S3_BUCKET_NAME } from "../config/environment";
+import { s3 } from "../config/s3";
 
 class Document {
-  public name: string | undefined;
+  public name = "";
 
-  constructor(
-    private readonly file: Express.Multer.File, // replace with multer // will contain file contents
-  ) {}
+  constructor(private readonly file: Express.Multer.File) {}
 
   rename() {
     try {
@@ -25,7 +27,18 @@ class Document {
     }
   }
 
-  async save() {}
+  async save() {
+    try {
+      let params: S3.Types.PutObjectRequest = {
+        Bucket: AWS_S3_BUCKET_NAME,
+        Key: this.name,
+        Body: this.file.buffer,
+      };
+      await s3.upload(params).promise();
+    } catch (error) {
+      throw new ResponseError(500, "Internal Server Error");
+    }
+  }
 }
 
 export { Document };
