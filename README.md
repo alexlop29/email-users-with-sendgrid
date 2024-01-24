@@ -50,10 +50,22 @@ Generating GUID
 - https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
 - https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
 
+SendGrid
+
+- https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs
+
+Template Literals
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+
 ## Left Off
 
-- Testing document class / build unit, then integration tests!
-- Need to setup AWS credentials!
+- Setting up sendgrid
+
+To Do:
+
+- DRY Template configuration!
+- Clean up the import statements!
 
 ```
 jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integration/ --forceExit
