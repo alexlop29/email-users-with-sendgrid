@@ -36,10 +36,9 @@ class Document {
         Key: this.name,
         Body: this.file.buffer,
       };
-      await s3.upload(params);
+      await s3.upload(params).promise();
       return new Response(200, "OK");
     } catch (error) {
-      console.log(error);
       throw new ResponseError(500, "Internal Server Error");
     }
   }
