@@ -20,7 +20,7 @@ class Document {
 
   constructor(private readonly file: Express.Multer.File) {}
 
-  rename() {
+  rename(): Response | ResponseError {
     try {
       this.name = randomUUID();
       return new Response(200, "OK");
@@ -29,15 +29,17 @@ class Document {
     }
   }
 
-  async save() {
+  async save(): Promise<Response | ResponseError> {
     try {
       let params: S3.Types.PutObjectRequest = {
         Bucket: AWS_S3_BUCKET_NAME,
         Key: this.name,
         Body: this.file.buffer,
       };
-      await s3.upload(params).promise();
+      await s3.upload(params);
+      return new Response(200, "OK");
     } catch (error) {
+      console.log(error);
       throw new ResponseError(500, "Internal Server Error");
     }
   }

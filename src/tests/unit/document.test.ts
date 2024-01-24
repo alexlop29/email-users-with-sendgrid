@@ -1,9 +1,8 @@
 import { Document } from "../../controllers/document";
-// import { ResponseError } from "../../handler/error";
 import { s3 } from "../../config/s3";
 import { stub, SinonStub } from "sinon";
 import { Readable } from "stream";
-const crypto = require('crypto');
+import { ResponseError } from "../../handler/error";
 
 describe("Should describe the document", () => {
   let mockUpload: SinonStub;
@@ -37,16 +36,29 @@ describe("Should describe the document", () => {
     expect(doc.name).not.toBe(sampleFile.originalname);
   });
 
-  // Having issues stubbing the crypto module properly!
-  test("Should return 500 if unable to rename the document", async () => {
-    const doc = new Document({ ...sampleFile });
-  
-    let mockRandomUUID: SinonStub;
-    mockRandomUUID = stub(crypto, "randomUUID");
-    mockRandomUUID.rejects();
+  /*
+  NOTE: (alopez) Reminder to create unit test for rename() failure path.
+  */
 
-    const response = doc.rename();
-    expect(response.status).toBe(500);
-    expect(response.message).toBe("Internal Server Error");
+  test("Should return 200 and save the document", async () => {
+    const doc = new Document({ ...sampleFile });
+    doc.rename();
+
+    mockUpload.resolves();
+    const response = await doc.save();
+
+    expect(response.status).toBe(200);
+    expect(response.message).toBe("OK");
+  });
+
+  test("Should return 500 if the document fails to save", async () => {
+    const doc = new Document({ ...sampleFile });
+    doc.rename();
+
+    mockUpload.rejects();
+
+    expect(doc.save()).rejects.toThrow(
+      new ResponseError(500, "Internal Server Error"),
+    );
   });
 });
