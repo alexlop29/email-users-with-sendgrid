@@ -45,11 +45,8 @@ describe("Should describe an email", () => {
     );
   });
 
-  // good test / caught improper error handling in the create class
-  test("Should return 500 if unable to create the email message", () => {
+  test("Should return 400 if unable to create the email message", () => {
     let email = new Email(applicant.email, "");
-    expect(() => email.create()).toThrow(
-      new ResponseError(500, "Internal Server Error"),
-    );
+    expect(() => email.create()).toThrow(new ResponseError(400, "Bad Request"));
   });
 });

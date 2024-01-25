@@ -14,7 +14,11 @@ Trusted Input vs Untrusted Input!
 */
 class Email {
   public msg: email | undefined;
-
+  private templates: { [key: string]: () => email } = {
+    acknowledge: () => acknowledge(this.toEmail),
+    reject: () => reject(this.toEmail),
+    accept: () => accept(this.toEmail),
+  };
   constructor(
     private readonly toEmail: string,
     private readonly template: string,
@@ -31,20 +35,12 @@ class Email {
     }
   }
 
-  // Simplify!
-  // abstract better!
   create(): Response | ResponseError {
-    try {
-      if (this.template == "reject") {
-        this.msg = reject(this.toEmail);
-      } else if (this.template == "acknowledge") {
-        this.msg = acknowledge(this.toEmail);
-      } else if (this.template == "accept") {
-        this.msg = accept(this.toEmail);
-      }
+    if (this.templates.hasOwnProperty(this.template)) {
+      this.msg = this.templates[this.template]();
       return new Response(200, "OK");
-    } catch (error) {
-      throw new ResponseError(500, "Internal Server Error");
+    } else {
+      throw new ResponseError(400, "Bad Request");
     }
   }
 
