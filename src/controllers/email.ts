@@ -15,16 +15,15 @@ class Email {
   public msg = {};
 
   constructor(
-    private readonly userEmail: string,
-    private readonly userFirstName: string,
-    private readonly subject: string,
+    private readonly toEmail: string,
+    private readonly template: string,
   ) {}
 
   init(): Response | ResponseError {
     try {
       if (
-        isEmail(this.userEmail) == false ||
-        isIn(this.subject, ["acknowledge", "reject", "accept"]) == false
+        isEmail(this.toEmail) == false ||
+        isIn(this.template, ["acknowledge", "reject", "accept"]) == false
       ) {
         throw new ResponseError(400, "Bad Request");
       }
@@ -36,14 +35,14 @@ class Email {
 
   generate(): Response | ResponseError {
     try {
-      if (this.subject == "reject") {
+      if (this.template == "reject") {
         // Simplify!
         // abstract better!
-        this.msg = reject(this.userFirstName);
-      } else if (this.subject == "acknowledge") {
-        this.msg = acknowledge(this.userFirstName);
-      } else if (this.subject == "accept") {
-        this.msg = accept(this.userFirstName);
+        this.msg = reject(this.toEmail);
+      } else if (this.template == "acknowledge") {
+        this.msg = acknowledge(this.toEmail);
+      } else if (this.template == "accept") {
+        this.msg = accept(this.toEmail);
       } else {
         throw new ResponseError(400, "Bad Request");
       }
@@ -58,7 +57,7 @@ class Email {
   */
   async send(): Promise<Response | ResponseError> {
     try {
-      await sgMail.send();
+      await sgMail.send(this.msg);
       return new Response(200, "OK");
     } catch (error) {
       throw new ResponseError(500, "Internal Server Error");
