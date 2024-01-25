@@ -58,9 +58,14 @@ Template Literals
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 
+MVC
+
+- https://medium.com/@maheshmaddi92/6-1-model-view-controller-mvc-52e7112d5fae
+- https://en.wikipedia.org/wiki/SOLID
+
 ## Left Off
 
-- Setting up sendgrid
+- Building the email class
 
 To Do:
 
