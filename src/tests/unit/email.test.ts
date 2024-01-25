@@ -1,11 +1,22 @@
 import { Email } from "../../controllers/email";
 import { ResponseError } from "../../handler/error";
+import { stub, SinonStub } from "sinon";
+import { sgMail } from "../../config/sendgrid";
 
 describe("Should describe an email", () => {
+  let mockSend: SinonStub;
   const applicant = {
     email: "harrypotter@gmail.com",
     template: "acknowledge",
   };
+
+  beforeEach(() => {
+    mockSend = stub(sgMail, "send");
+  });
+
+  afterEach(() => {
+    mockSend.restore();
+  });
 
   test("Should return 200 if the email contains valid parameters", () => {
     const email = new Email(applicant.email, applicant.template);
@@ -22,7 +33,7 @@ describe("Should describe an email", () => {
     expect(() => email.init()).toThrow(new ResponseError(400, "Bad Request"));
   });
 
-  test("Should return 200 and create the email message", () => {
+  test("Should return 200 if able to create the email message", () => {
     let email = new Email(applicant.email, "acknowledge");
     email.create();
     expect(email.msg?.to).toBe(applicant.email);
@@ -48,5 +59,25 @@ describe("Should describe an email", () => {
   test("Should return 400 if unable to create the email message", () => {
     let email = new Email(applicant.email, "");
     expect(() => email.create()).toThrow(new ResponseError(400, "Bad Request"));
+  });
+
+  test("Should return 200 if able to send the email", async () => {
+    let email = new Email(applicant.email, applicant.template);
+
+    mockSend.resolves();
+    const response = await email.send();
+
+    expect(response.status).toBe(200);
+    expect(response.message).toBe("OK");
+  });
+
+  test("Should return 500 if able to send the email", async () => {
+    let email = new Email(applicant.email, applicant.template);
+
+    mockSend.rejects();
+
+    expect(email.send()).rejects.toThrow(
+      new ResponseError(500, "Internal Server Error"),
+    );
   });
 });
