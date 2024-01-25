@@ -1,4 +1,5 @@
 import { SENDGRID_DOMAIN_EMAIL, COMPANY_NAME } from "../config/environment";
+import { email } from "../types/email";
 
 const response = `
 Thanks for applying!
@@ -13,8 +14,8 @@ Looking forward to connecting!
 `;
 
 const accept = (name: string) => {
-  const msg = {
-    to: name, // will need to validate
+  const msg: email = {
+    to: name, // will need to validate // change to email var name
     from: SENDGRID_DOMAIN_EMAIL,
     subject: `${COMPANY_NAME} - Interview Request`,
     text: response,

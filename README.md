@@ -65,7 +65,8 @@ MVC
 
 ## Left Off
 
-- Building the email class
+- Building unit tests for the email class.
+- Building integration tests for the email class.
 
 To Do:
 

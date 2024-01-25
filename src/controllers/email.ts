@@ -5,6 +5,7 @@ import { reject } from "../templates/reject";
 import { accept } from "../templates/accept";
 import { acknowledge } from "../templates/acknowledge";
 import { isEmail, isIn } from "validator";
+import { email } from "../types/email";
 
 /*
 NOTE: (alopez) Emails will be called after User, which validates all of this information, but
@@ -12,7 +13,7 @@ adding in regardless, as part of the demonstration.
 Trusted Input vs Untrusted Input!
 */
 class Email {
-  public msg = {};
+  public msg: email | undefined;
 
   constructor(
     private readonly toEmail: string,
@@ -20,31 +21,26 @@ class Email {
   ) {}
 
   init(): Response | ResponseError {
-    try {
-      if (
-        isEmail(this.toEmail) == false ||
-        isIn(this.template, ["acknowledge", "reject", "accept"]) == false
-      ) {
-        throw new ResponseError(400, "Bad Request");
-      }
+    if (
+      isEmail(this.toEmail) &&
+      isIn(this.template, ["acknowledge", "reject", "accept"])
+    ) {
       return new Response(200, "OK");
-    } catch (error) {
-      throw new ResponseError(500, "Internal Server Error");
+    } else {
+      throw new ResponseError(400, "Bad Request");
     }
   }
 
-  generate(): Response | ResponseError {
+  // Simplify!
+  // abstract better!
+  create(): Response | ResponseError {
     try {
       if (this.template == "reject") {
-        // Simplify!
-        // abstract better!
         this.msg = reject(this.toEmail);
       } else if (this.template == "acknowledge") {
         this.msg = acknowledge(this.toEmail);
       } else if (this.template == "accept") {
         this.msg = accept(this.toEmail);
-      } else {
-        throw new ResponseError(400, "Bad Request");
       }
       return new Response(200, "OK");
     } catch (error) {
