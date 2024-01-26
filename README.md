@@ -1,17 +1,23 @@
 # About
 
-## Getting Started
+## 🏄 Getting Started
 
 ```
 docker-compose up --build -d
 docker-compose down
 ```
 
+```
+jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integration/ --forceExit
+```
+
 ### 🔧 Core libraries
 
 - [Node 20.11.0](https://nodejs.org/en)
 - [Mongoose ODM](https://mongoosejs.com)
-- [Express.js]
+- [Express.js](https://expressjs.com)
+- [multer](https://github.com/expressjs/multer)
+- [aws-sdk](https://www.npmjs.com/package/aws-sdk)
 
 ### 💻 Development Libraries
 
@@ -23,56 +29,24 @@ docker-compose down
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)
 - [Sinon.js](https://www.npmjs.com/package/sinon)
-- [Validator.js]()
-- [nodemon]()
-- [multer]()
-- [aws-sdk]()
+- [Validator.js](https://github.com/mikeerickson/validatorjs)
+- [nodemon](https://nodemon.io)
 
-### Types
+### 📛 Types
 
-- @types/sinon
-- @types/validator
-- @types/express
-- @types/multer
+- [@types/sinon](https://www.npmjs.com/package/@types/sinon)
+- [@types/validator](https://www.npmjs.com/package/@types/validator)
+- [@types/express](https://www.npmjs.com/package/@types/express)
+- [@types/multer](https://www.npmjs.com/package/@types/multer)
 
-## Additional Reading
+## 📑 Additional Readings
+- [Stub Mongoose Methods and Mock Document Objects](https://getsimple.works/how-to-stub-mongoose-methods-and-mock-document-objects)
+- [OWASP - Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation)
+- [Generate Random UUID](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)
+- [SendGrid - Nodejs](https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs)
+- [SOLID: The First 5 Principles of Object Oriented Design](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design#liskov-substitution-principle)
+- [Model View Controller (MVC)](https://medium.com/@maheshmaddi92/6-1-model-view-controller-mvc-52e7112d5fae)
 
-- https://stackoverflow.com/questions/11318972/stubbing-a-mongoose-model-with-sinon
-- https://getsimple.works/how-to-stub-mongoose-methods-and-mock-document-objects
-
-- https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
-- https://validatejs.org/#validators-presence
-- https://www.npmjs.com/package/validatorjs
-- https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation
-
-Generating GUID
-
-- https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
-- https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
-
-SendGrid
-
-- https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs
-
-Template Literals
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-
-MVC
-
-- https://medium.com/@maheshmaddi92/6-1-model-view-controller-mvc-52e7112d5fae
-- https://en.wikipedia.org/wiki/SOLID
-
-## Left Off
-
-- Building unit tests for the email class.
-- Building integration tests for the email class.
-
-To Do:
-
-- DRY Template configuration!
-- Clean up the import statements!
-
-```
-jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integration/ --forceExit
-```
+## 🚧 To Do
+- Clean up the code.
+- Add API Routes and Controllers
