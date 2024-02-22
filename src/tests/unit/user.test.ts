@@ -136,8 +136,6 @@ describe("Should describe the user", () => {
     );
   });
 
-  // Add test to validate the document object id!
-
   test("Should return 200 and save the user's information", async () => {
     const user = new User(
       validUser.firstName,

@@ -1,15 +1,18 @@
 import { MONGO_DB_URI } from "./environment";
 const mongoose = require("mongoose");
+import { app } from "../index.js";
+import { ResponseError } from "../handler/error";
 
-// Return and update the error handling.
-// ensure graceful shutdown!
 try {
   mongoose.connect(MONGO_DB_URI, {
     maxPoolSize: 10,
     minPoolSize: 5,
   });
+  mongoose.connection.once("open", () => {
+    app.emit("ready");
+  });
 } catch (error) {
-  console.log("Error connecting to MongoDB Atlas");
+  throw new ResponseError(500, "Internal Server Error");
 }
 
 export { mongoose };

@@ -1,7 +1,3 @@
-/*
-// Thoughts: Can require a unique user email to prevent re-uploads
-// What if there is an error? ATOMIC transaction in Mongoose? 
-*/
 import mongoose from "mongoose";
 const uniqueValidator = require("mongoose-unique-validator");
 import { isEmail, isMobilePhone } from "validator";
@@ -29,7 +25,7 @@ const userSchema = new Schema({
     validate: [isMobilePhone, "Invalid Phone Number"],
   },
   resume: {
-    type: String, // change to a reference to the document schema
+    type: String,
     required: true,
   },
 });

@@ -10,7 +10,7 @@ class User {
     private readonly lastName: string,
     private readonly email: string,
     private readonly phone: string,
-    private readonly resume: string, // Change to Object_ID of the Document
+    private readonly resume: string,
   ) {
     this.profile = new user({
       firstName: this.firstName,

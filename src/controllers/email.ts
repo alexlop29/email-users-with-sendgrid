@@ -7,11 +7,6 @@ import { acknowledge } from "../templates/acknowledge";
 import { isEmail, isIn } from "validator";
 import { email } from "../types/email";
 
-/*
-NOTE: (alopez) Emails will be called after User, which validates all of this information, but
-adding in regardless, as part of the demonstration.
-Trusted Input vs Untrusted Input!
-*/
 class Email {
   public msg: email | undefined;
   private templates: { [key: string]: () => email } = {
@@ -44,9 +39,6 @@ class Email {
     }
   }
 
-  /*
-  NOTE: (alopez) Migrate email sending to a background task.
-  */
   async send(): Promise<Response | ResponseError> {
     try {
       await sgMail.send(this.msg);

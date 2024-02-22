@@ -40,13 +40,10 @@ jest --config=src/tests/jest.config.json  --testPathPattern=src/tests/integratio
 - [@types/multer](https://www.npmjs.com/package/@types/multer)
 
 ## 📑 Additional Readings
+
 - [Stub Mongoose Methods and Mock Document Objects](https://getsimple.works/how-to-stub-mongoose-methods-and-mock-document-objects)
 - [OWASP - Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html#email-address-validation)
 - [Generate Random UUID](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)
 - [SendGrid - Nodejs](https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs)
 - [SOLID: The First 5 Principles of Object Oriented Design](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design#liskov-substitution-principle)
 - [Model View Controller (MVC)](https://medium.com/@maheshmaddi92/6-1-model-view-controller-mvc-52e7112d5fae)
-
-## 🚧 To Do
-- Clean up the code.
-- Add API Routes and Controllers
